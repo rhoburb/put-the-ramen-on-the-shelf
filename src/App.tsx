@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createGame } from './game/Game';
-import { Notebook as Robot, CheckCircle2, HelpCircle } from 'lucide-react';
+import { Soup, CheckCircle2, HelpCircle } from 'lucide-react';
 import { ChatInterface } from './components/ChatInterface';
 
 interface Achievement {
@@ -13,12 +13,12 @@ interface Achievement {
 function App() {
   const gameRef = useRef<any>(null);
   const [achievements, setAchievements] = useState<Achievement[]>([
-    { id: 'drop', title: '???', description: 'Drop the ramen on the floor - five second rule!', completed: false },
-    { id: 'throw_right', title: '???', description: 'Throw the ramen across the room - food fight!', completed: false },
-    { id: 'catch', title: '???', description: 'Show off your ramen juggling skills', completed: false },
-    { id: 'shelf_success', title: '???', description: 'Place the ramen perfectly for service', completed: false },
-    { id: 'shelf_almost', title: '???', description: 'Almost ready to serve, but not quite right', completed: false },
-    { id: 'drink', title: '???', description: 'Successfully serve the ramen to the customer', completed: false },
+    { id: 'drop', title: '???', description: 'Drop the ramen on the floor', completed: false },
+    { id: 'throw_right', title: '???', description: 'Throw the ramen across the room', completed: false },
+    { id: 'catch', title: '???', description: 'Catch the noodles', completed: false },
+    { id: 'shelf_success', title: '???', description: 'Put the ramen on the shelf', completed: false },
+    { id: 'shelf_almost', title: '???', description: 'Almost, but not quite right', completed: false },
+    { id: 'drink', title: '???', description: 'Throw the noodles over your shoulder', completed: false },
   ]);
 
   const achievementTitles = {
@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center py-8">
       <div className="mb-8 flex items-center gap-3">
-        <Robot className="w-8 h-8 text-blue-400" />
+        <Soup className="w-8 h-8 text-blue-400" />
         <h1 className="text-3xl font-bold text-white">Put the Ramen on the Shelf</h1>
       </div>
       

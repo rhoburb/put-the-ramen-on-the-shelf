@@ -61,7 +61,8 @@ export function ChatInterface() {
     try {
       setIsLoading(true);
       engineRef.current = await CreateMLCEngine(
-        "SmolLM2-135M-Instruct-q0f16-MLC",
+        // "SmolLM2-135M-Instruct-q0f16-MLC",
+        "Llama-3.2-1B-Instruct-q4f32_1-MLC",
         { 
           initProgressCallback: (progress) => {
             setLoadingProgress(Math.round(progress * 100));
@@ -138,9 +139,10 @@ export function ChatInterface() {
     const randomIndex = Math.floor(Math.random() * PREDEFINED_MESSAGES.length);
     const randomMessage = PREDEFINED_MESSAGES[randomIndex];
     const randomMessageWrapped = 'Hi, lets play a game, you are a robot trying to put a bowl of noodles on a shelf. reply with a short message of what you are thinking about your task. For some humorous context here is a topic you could use: "' + randomMessage + '"';
-    const userMessage = { role: 'user' as const, content: randomMessageWrapped };
+    const userMessage = { role: 'user' as const, content: randomMessage };
+    const userMessageToAi = { role: 'user' as const, content: randomMessageWrapped };
     setMessages(prev => [...prev, userMessage]);
-    handleAIResponse(userMessage);
+    handleAIResponse(userMessageToAi);
   };
 
   const handleAIResponse = async (userMessage: Message) => {
@@ -148,7 +150,7 @@ export function ChatInterface() {
 
     try {
       const chatMessages = [
-        { role: 'system' as const, content: 'You are a robot chef. You are trying to put a bowl of noodles on a shelf. You speak your thoughts aloud. When asked anything you reply as though you are thinking to yourself about your current task, which is to put the bowl of noodles on the shelf. You are very clumsy. You are struggling to put the bowl of noodles on the shelf. You might have a malfunction. Your arm controls are difficult to operate. Your replies will be short quips. You are not as assistant. You are an NPC character in a game being controlled by the player.' },
+        { role: 'system' as const, content: 'You are a robot chef. You are trying to put a bowl of noodles on a shelf. You speak your thoughts aloud. do not repeat yourself. Your replies must be short. When asked anything you reply as though you are thinking to yourself about your current task. you are putting the bowl of noodles on the shelf. You are very clumsy. You are struggling to put the bowl of noodles on the shelf. Your arm controls are difficult to operate. Your replies will be short quips. You are not as assistant. You are an NPC character in a game being controlled by the player.' },
         ...messages,
         userMessage
       ];
@@ -189,7 +191,7 @@ export function ChatInterface() {
         className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-3 flex items-center justify-center gap-2 transition-colors"
       >
         <Bot className="w-5 h-5" />
-        Enable AI
+        Enable AI (experimental)
       </button>
     );
   }
@@ -204,7 +206,7 @@ export function ChatInterface() {
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
               <Loader2 className="w-8 h-8 animate-spin text-blue-400 mx-auto mb-2" />
-              <p className="text-gray-400">Loading model... {loadingProgress}%</p>
+              <p className="text-gray-400">Loading model...</p>
             </div>
           </div>
         )}
@@ -213,7 +215,7 @@ export function ChatInterface() {
           <div
             key={index}
             className={`flex items-center gap-2 ${
-              message.role === 'user' ? 'justify-end' : 'justify-start'
+              message.role === 'user' ? 'justify-end hidden' : 'justify-start'
             }`}
           >
             <div

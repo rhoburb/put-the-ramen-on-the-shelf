@@ -121,7 +121,7 @@ export class AchievementManager {
     const maxY = 600 * 0.50; // 50% from top
 
     if (coffee.x < 0 && coffee.y > minY && coffee.y < maxY) {
-      this.unlockAchievement('drink', 'Sip sip!', 'Coffee successfully delivered to the drinking zone');
+      this.unlockAchievement('drink', 'Over the shoulder!', 'Throw the noodles over your shoulder');
     }
   }
 
